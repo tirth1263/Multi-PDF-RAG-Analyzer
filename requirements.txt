@@ -1,7 +1,7 @@
-# LangChain is pinned to the 0.3 line: the 1.x rewrite removed
-# langchain.chains.question_answering.load_qa_chain, which this app uses.
-langchain>=0.3.0,<1.0.0
-langchain-core>=0.3.0,<1.0.0
+# The chain is built from langchain_core primitives (prompt | model | parser),
+# so the `langchain` umbrella package and its legacy chain helpers aren't needed.
+langchain-core>=0.3.0
+langchain-text-splitters>=0.3.0
 langchain-community>=0.3.0,<0.4.0
 langchain-google-genai>=2.0.0,<3.0.0
 

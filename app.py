@@ -13,14 +13,14 @@ import markdown as md
 import pandas as pd
 import streamlit as st
 from PyPDF2 import PdfReader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-from langchain_core.prompts import PromptTemplate
-from langchain.chains.question_answering import load_qa_chain
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_google_genai import (
     ChatGoogleGenerativeAI,
     GoogleGenerativeAIEmbeddings,
 )
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 FAISS_INDEX_DIR = "faiss_index"
 
@@ -179,13 +179,25 @@ def load_vector_store(api_key, embedding_model):
 
 
 def get_conversational_chain(api_key, chat_model, temperature):
+    """Build the LCEL chain: prompt -> Gemini -> plain string.
+
+    Composed from langchain_core primitives only, so it does not depend on the
+    legacy chain helpers that the LangChain 1.x rewrite removed.
+    """
     model = ChatGoogleGenerativeAI(
         model=chat_model, temperature=temperature, google_api_key=api_key
     )
-    prompt = PromptTemplate(
-        template=PROMPT_TEMPLATE, input_variables=["context", "question"]
-    )
-    return load_qa_chain(model, chain_type="stuff", prompt=prompt)
+    prompt = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
+    return prompt | model | StrOutputParser()
+
+
+def format_docs(docs):
+    """Flatten retrieved chunks into the prompt's context block.
+
+    Each chunk already carries its own [Source: file | Page N] header from
+    extraction, so the separator just keeps them visually distinct.
+    """
+    return "\n\n---\n\n".join(doc.page_content for doc in docs)
 
 
 def answer_question(question, api_key, chat_model, embedding_model, temperature, k):
@@ -195,8 +207,10 @@ def answer_question(question, api_key, chat_model, embedding_model, temperature,
 
     docs = vector_store.similarity_search(question, k=k)
     chain = get_conversational_chain(api_key, chat_model, temperature)
-    response = chain.invoke({"input_documents": docs, "question": question})
-    return response["output_text"], None
+    answer = chain.invoke({"context": format_docs(docs), "question": question})
+    # langchain-core 1.x returns a str subclass here; normalise it so the CSV
+    # export and markdown renderer always receive a plain string.
+    return str(answer), None
 
 
 def render_message(role, content):

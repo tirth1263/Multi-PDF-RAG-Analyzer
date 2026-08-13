@@ -1,0 +1,13 @@
+# LangChain is pinned to the 0.3 line: the 1.x rewrite removed
+# langchain.chains.question_answering.load_qa_chain, which this app uses.
+langchain>=0.3.0,<1.0.0
+langchain-core>=0.3.0,<1.0.0
+langchain-community>=0.3.0,<0.4.0
+langchain-google-genai>=2.0.0,<3.0.0
+
+streamlit>=1.40.0
+PyPDF2>=3.0.1
+faiss-cpu>=1.8.0
+pandas>=2.0.0
+Markdown>=3.5
+python-dotenv>=1.0.0

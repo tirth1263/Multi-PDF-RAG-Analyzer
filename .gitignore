@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Secrets — never commit an API key
+.env
+.streamlit/secrets.toml
+
+# Generated vector store
+faiss_index/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

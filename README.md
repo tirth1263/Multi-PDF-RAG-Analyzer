@@ -59,25 +59,17 @@ financial analyst hunting for red flags.
 
 The app is split into a configuration sidebar and a chat surface:
 
-```
-┌────────────────────────┬──────────────────────────────────────────────┐
-│  ⚙️  Configuration      │   📄 Chat with Multiple PDFs                 │
-│                        │                                              │
-│  Google AI API Key     │   🧑‍💼 YOU                                     │
-│  [ ●●●●●●●●●●●●●● ]    │   Compare debt-to-equity across all reports.  │
-│                        │                                              │
-│  Chat model      ▾     │   🤖 GEMINI ANALYST                           │
-│  Embedding model ▾     │   | Company   | FY23 | FY24 | Trend |         │
-│                        │   |-----------|------|------|-------|        │
-│  ▸ Advanced            │   | Company A | 0.82 | 1.14 |  ▲    |        │
-│                        │   | Company B | 0.41 | 0.38 |  ▼    |        │
-│  📄 Your documents     │                                              │
-│  [ Upload PDFs      ]  │   Key takeaways                              │
-│  [ Process Documents ] │   • Company A's leverage rose 39% …           │
-│                        │                                              │
-│  📥 Export chat as CSV │   [ Ask a question about your documents… ]    │
-└────────────────────────┴──────────────────────────────────────────────┘
-```
+<div align="center">
+  <img src="assets/screenshot.png" alt="The Chat with Multiple PDFs interface: a configuration sidebar with API key, model pickers and PDF uploader, beside a chat surface with suggested financial questions" width="100%">
+</div>
+
+**Sidebar** — paste your API key, pick the chat and embedding models, tune
+temperature and retrieval depth under *Advanced*, upload your PDFs, and export
+the conversation to CSV.
+
+**Main panel** — suggested analyst questions to start with, then a running chat
+where every answer is grounded in the documents you uploaded. Answers come back
+as markdown, so period-on-period comparisons render as proper tables.
 
 ---
 
@@ -236,6 +228,10 @@ Three hard rules keep it honest:
 ├── requirements.txt        # Required Python packages
 ├── .streamlit/
 │   └── config.toml         # Theme and upload-size configuration
+├── .devcontainer/
+│   └── devcontainer.json   # One-click GitHub Codespaces setup
+├── assets/
+│   └── screenshot.png      # Interface screenshot used in this README
 ├── .env.example            # Template for your API key
 ├── faiss_index/            # Folder where the vectorstore is saved (gitignored)
 ├── LICENSE                 # MIT

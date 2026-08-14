@@ -13,9 +13,9 @@ Built with **LangChain**, **Google Gemini**, and **FAISS** — wrapped in a clea
 [![Gemini](https://img.shields.io/badge/Google%20Gemini-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)](https://ai.google.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://multi-pdf-rag-analyzer.streamlit.app)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://gw3kjvtnn8w2cy47qupvun.streamlit.app/)
 
-**[🚀 Live Demo](https://multi-pdf-rag-analyzer.streamlit.app)** · [Features](#-features) · [Quick Start](#️-installation) · [How It Works](#-how-it-works)
+**[🚀 Live Demo](https://gw3kjvtnn8w2cy47qupvun.streamlit.app/)** · [Features](#-features) · [Quick Start](#️-installation) · [How It Works](#-how-it-works)
 
 </div>
 
